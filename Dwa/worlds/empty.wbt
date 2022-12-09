@@ -1,0 +1,300 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.08027536575162494 0.9785386457646313 0.18978404674409338 3.894579577154775
+  position -2.0385314188787396 1.2559884100140524 -2.909621073133895
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 5 5
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+}
+Robot {
+  translation -2.1 0.01 -2.1
+  rotation 0 1 0 1.57
+  children [
+    DEF camera Camera {
+      translation 0 0.1 0.035
+      rotation 0 1 0 3.14
+      children [
+        Transform {
+          scale 1 1 0.934397323061055
+          children [
+            Shape {
+              appearance PBRAppearance {
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+      recognitionColors [
+        0 0 0
+      ]
+      recognition Recognition {
+        frameThickness 2
+        segmentation TRUE
+      }
+    }
+    DEF imu InertialUnit {
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+    }
+    DEF body Transform {
+      translation 0 0.0415 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.045 0.025 0
+      }
+      device [
+        PositionSensor {
+          name "ps_1"
+        }
+        RotationalMotor {
+          name "motor_1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.045 0.025 0
+        rotation 8.638948920706478e-16 6.282871942331984e-16 1 1.57
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              baseColor 1 0 0
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.025
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.045 0.025 0
+      }
+      device [
+        PositionSensor {
+          name "ps_2"
+        }
+        RotationalMotor {
+          name "motor_2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.045 0.025 0
+        rotation 3.534115467561741e-16 3.92679496395749e-17 1 1.5699999999999994
+        children [
+          USE wheel
+        ]
+        name "solid(1)"
+        boundingObject USE wheel
+        physics Physics {
+        }
+      }
+    }
+    Solid {
+      translation 0.015 0.07 0.045
+      children [
+        DEF eye Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.005 0.005 0.005
+          }
+        }
+      ]
+      name "solid(2)"
+    }
+    Solid {
+      translation -0.015 0.07 0.045
+      children [
+        USE eye
+      ]
+      name "solid(3)"
+    }
+    GPS {
+    }
+    Compass {
+    }
+  ]
+  boundingObject USE body
+  physics Physics {
+  }
+  controller "my_controller_dwa"
+}
+Solid {
+  translation 0 0.1 0
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+}
+DEF barrier Solid {
+  translation 0 0.1 -0.9
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(4)"
+  recognitionColors [
+    0 0 0
+  ]
+}
+DEF barrier1 Solid {
+  translation -1 0.1 -2.2
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(5)"
+  recognitionColors [
+    0 0 0
+  ]
+}
+Solid {
+  translation -0.5 0.1 -1.25
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(1)"
+  recognitionColors [
+    0 0 0
+  ]
+}
+Solid {
+  translation -1.6 0.1 -1.5
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(3)"
+  recognitionColors [
+    0 0 0
+  ]
+}
+Solid {
+  translation 1.2 0.1 0.72
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(2)"
+  recognitionColors [
+    0 0 0
+  ]
+}
+Solid {
+  translation 1.2 0.1 0.05
+  children [
+    DEF obstacle Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(6)"
+  recognitionColors [
+    0 0 0
+  ]
+}
+DEF supervisor Robot {
+  name "robot(1)"
+  controller "supervisor_controller"
+  supervisor TRUE
+}
